@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 const INITIAL_DB = {
   users: [
     {
-      id: "u1", name: "Amina Hassan", bio: "Model & entrepreneur from Nairobi 🌟", country: "Kenya",
+      id: "u1", name: "Amina Hassan", bio: "Model & entrepreneur from Nairobi 🌟", country: "Kenya", gender: "female", birthDate: "1995-03-15", age: 29, region: "Nairobi", area: "Westlands",
       phone: "+254712345678", email: "amina@demo.com", password: "demo123",
       profileImage: "https://randomuser.me/api/portraits/women/44.jpg",
       videoUrl: null, isPremium: true, premiumExpiry: "2025-12-31",
@@ -13,7 +13,7 @@ const INITIAL_DB = {
       language: "en", plan: "monthly"
     },
     {
-      id: "u2", name: "Jean-Pierre Mutamba", bio: "Businessman, Kigali. Looking for serious connections.", country: "Rwanda",
+      id: "u2", name: "Jean-Pierre Mutamba", bio: "Businessman, Kigali. Looking for serious connections.", country: "Rwanda", gender: "male", birthDate: "1990-07-22", age: 34, region: "Kigali", area: "Gasabo",
       phone: "+250788123456", email: "jean@demo.com", password: "demo123",
       profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
       videoUrl: null, isPremium: false, premiumExpiry: null,
@@ -22,7 +22,7 @@ const INITIAL_DB = {
       language: "fr", plan: null
     },
     {
-      id: "seed1", name: "Fatima Al-Rashid", bio: "Dubai-based model & influencer 💫 Message me!", country: "Tanzania",
+      id: "seed1", name: "Fatima Al-Rashid", bio: "Dubai-based model & influencer 💫 Message me!", country: "Tanzania", gender: "female", birthDate: "1998-01-10", age: 26, region: "Zanzibar Mjini", area: "Stone Town",
       phone: "+255754987654", email: "fatima@seed.com", password: "admin123",
       profileImage: "https://randomuser.me/api/portraits/women/68.jpg",
       videoUrl: null, isPremium: true, premiumExpiry: "2099-12-31",
@@ -32,7 +32,7 @@ const INITIAL_DB = {
       joinedAt: "2024-01-01", language: "sw", plan: "yearly"
     },
     {
-      id: "seed2", name: "Bella Okonkwo", bio: "Lagos to the world 🌍 Premium connections only.", country: "Uganda",
+      id: "seed2", name: "Bella Okonkwo", bio: "Lagos to the world 🌍 Premium connections only.", country: "Uganda", gender: "female", birthDate: "1997-05-30", age: 27, region: "Kampala", area: "Makindye",
       phone: "+256700112233", email: "bella@seed.com", password: "admin123",
       profileImage: "https://randomuser.me/api/portraits/women/55.jpg",
       videoUrl: null, isPremium: true, premiumExpiry: "2099-12-31",
@@ -44,7 +44,7 @@ const INITIAL_DB = {
   ],
   admin: { id: "admin", email: "yohanamichael92@gmail.com", password: "Nrf5sz@.", role: "admin", name: "Super Admin" },
   subscriptions: [
-    { id: "s1", userId: "u1", planType: "monthly", amount: 5.99, startDate: "2024-11-01", endDate: "2024-12-01", status: "active" }
+    { id: "s1", userId: "u1", planType: "monthly", amount: 9.99, startDate: "2024-11-01", endDate: "2024-12-01", status: "active" }
   ],
   boosts: [],
   likes: [
@@ -57,10 +57,10 @@ const INITIAL_DB = {
 
 // ─── PLANS ───────────────────────────────────────────────────────────────────
 const PLANS = {
-  daily:   { label: "Daily",   price: 0.5,  duration: 1,   currency: "USD" },
-  weekly:  { label: "Weekly",  price: 1.99,  duration: 7,   currency: "USD" },
-  monthly: { label: "Monthly", price: 5.99,  duration: 30,  currency: "USD", popular: true },
-  yearly:  { label: "Yearly",  price: 29.99, duration: 365, currency: "USD" },
+  daily:   { label: "Daily",   price: 0.60,  duration: 1,   currency: "USD" },
+  weekly:  { label: "Weekly",  price: 2.99,  duration: 7,   currency: "USD" },
+  monthly: { label: "Monthly", price: 7.99,  duration: 30,  currency: "USD", popular: true },
+  yearly:  { label: "Yearly",  price: 49.99, duration: 365, currency: "USD" },
 };
 
 const COUNTRIES = ["Tanzania","Kenya","Uganda","Rwanda","Ethiopia","Nigeria","Ghana","South Africa","Other"];
@@ -70,14 +70,8 @@ const LOCATIONS = {
   Tanzania: {
     flag: "🇹🇿",
     regions: {
-      "Dar es Salaam": ["Kinondoni","Ilala","Temeke","Ubungo","Kigamboni","Mbagala","Kariakoo", "Tabata","Masaki","Sinza","Mbezi","Manzese","Tandika","Kimara"],
-      "Zanzibar Mjini": ["Bububu","Stone Town","Mwanakwerekwe","Fuoni","Magomeni","Mlandege","Chukwani","Kiembesamaki"],
-      "Zanzibar Kaskazini A": ["Nungwi","Matemwe","Mkokotoni","Donge","Tumbatu"],
-      "Zanzibar Kaskazini B": ["Chaani","Mahonda","Chwaka","Kiwengwa"],
-      "Zanzibar Kusini": ["Koani","Makunduchi","Muyuni","Paje","Jambiani"],
-      "Zanzibar Magharibi": ["Kojani","Mkwajuni","Kibokwa","Dimani"],
-      "Pemba Kaskazini": ["Wete","Konde","Kojani"],
-      "Pemba Kusini": ["Mkoani","Chake Chake","Pujini"],
+      "Dar es Salaam": ["Kinondoni","Ilala","Temeke","Ubungo","Kigamboni"],
+      "Zanzibar Mjini": ["Bububu","Stone Town","Mwanakwerekwe","Fuoni","Magomeni","Mlandege","Chukwani","Kiembesamaki","Nungwi","Paje"],
       "Arusha": ["Arusha CBD","Arusha Chini","Meru","Arumeru","Ngorongoro","Monduli","Karatu","Longido"],
       "Kilimanjaro": ["Moshi","Hai","Rombo","Same","Mwanga","Siha","Moshi Vijijini"],
       "Mwanza": ["Nyamagana","Ilemela","Magu","Sengerema","Misungwi","Kwimba","Geita"],
@@ -152,7 +146,7 @@ const LOCATIONS = {
 // ⚠️ MUHIMU: Badilisha values hizi kwenye GitHub yako mwenyewe - USIZIWEKE HAPA
 // Nenda GitHub → wauza-utamutz → pages/index.jsx → tafuta PESAPAL_CONSUMER_KEY
 const PESAPAL_CONFIG = {
-  CONSUMER_KEY: "bGur9I0CXbkqqjKMblbl+rIUGCQqG+Zr",
+   CONSUMER_KEY: "bGur9I0CXbkqqjKMblbl+rIUGCQqG+Zr",
   CONSUMER_SECRET: "FzdDeX1ykudIp9DvQunuktK52+Y=",
   BASE_URL: "https://pay.pesapal.com/v3", // Live URL
   CALLBACK_URL: "https://wauza-utamutz-app.vercel.app/payment-callback",
@@ -161,7 +155,7 @@ const PESAPAL_CONFIG = {
 // ─── TRANSLATIONS ─────────────────────────────────────────────────────────────
 const T = {
   en: {
-    appName: "Waauza Utamutz", tagline: "Discover and connect beutifull companions near you",
+    appName: "Waauza Utamutz", tagline: "Discove and connect with Beutifull comanoins near you",
     login: "Sign In", register: "Create Account", email: "Email", password: "Password",
     name: "Full Name", bio: "About Me", country: "Country", phone: "Phone Number",
     upload: "Upload Photo", browse: "Browse Profiles", premium: "Go Premium",
@@ -189,7 +183,7 @@ const T = {
     language: "Language", english: "English", swahili: "Swahili", french: "French",
   },
   sw: {
-    appName: "Waauza Utamutz", tagline: "Gundua na uungane na warembo waliokaribu nawe",
+    appName: "Waauza Utamutz", tagline: "Gundua na uungane na mrembo aliyekaribu nawe",
     login: "Ingia", register: "Fungua Akaunti", email: "Barua pepe", password: "Neno la siri",
     name: "Jina Kamili", bio: "Kuhusu Mimi", country: "Nchi", phone: "Nambari ya Simu",
     upload: "Pakia Picha", browse: "Tazama Wasifu", premium: "Kuwa Premium",
@@ -210,14 +204,14 @@ const T = {
     darkMode: "Giza", lightMode: "Mwanga",
     paymentProcessing: "Inafanya malipo...", paymentSuccess: "Malipo Yamefanikiwa! 🎉",
     premiumUnlocked: "Premium Imefunguliwa!", selectPayment: "Chagua Njia ya Malipo",
-    mobileMoney: "Mitandao ya Simu", card: "Kadi ya Benki",
+    mobileMoney: "Pesa ya Simu", card: "Kadi ya Benki",
     forgotPassword: "Umesahau Nywila?", resetPassword: "Weka Upya Nywila",
     otp: "Ingiza OTP", sendOtp: "Tuma OTP", verifyOtp: "Thibitisha OTP",
     profileUpdated: "Wasifu umesasishwa!", uploading: "Inapakia...",
     language: "Lugha", english: "Kiingereza", swahili: "Kiswahili", french: "Kifaransa",
   },
   fr: {
-    appName: "Waauza Utamutz", tagline: "Découvrez et connectez-vous avec de belles personnes près de chez vous.",
+    appName: "Waauza Utamutz", tagline: "Connexions Premium en Afrique de l'Est",
     login: "Connexion", register: "Créer un compte", email: "E-mail", password: "Mot de passe",
     name: "Nom complet", bio: "À propos de moi", country: "Pays", phone: "Numéro de téléphone",
     upload: "Télécharger photo", browse: "Parcourir profils", premium: "Devenir Premium",
@@ -470,7 +464,12 @@ export default function App() {
 
   const handleRegister = (data) => {
     if (db.users.find(u => u.email === data.email)) { showToast("Email already registered", "error"); return; }
-    const newUser = { id: `u${Date.now()}`, ...data, isPremium: false, premiumExpiry: null, isSeedAccount: false, createdByAdmin: false, isActive: true, role: "user", boostedUntil: null, likedBy: [], joinedAt: new Date().toISOString(), plan: null };
+    if (!data.gender) { showToast("Chagua jinsia yako", "error"); return; }
+    if (!data.birthDate) { showToast("Weka tarehe ya kuzaliwa", "error"); return; }
+    const birthYear = new Date(data.birthDate).getFullYear();
+    const age = new Date().getFullYear() - birthYear;
+    if (age < 18) { showToast("Lazima uwe na umri wa miaka 18+ kujiandikisha", "error"); return; }
+    const newUser = { id: `u${Date.now()}`, ...data, age, isPremium: false, premiumExpiry: null, isSeedAccount: false, createdByAdmin: false, isActive: true, role: "user", boostedUntil: null, likedBy: [], joinedAt: new Date().toISOString(), plan: null };
     updateDb({ users: [...db.users, newUser] });
     setCurrentUser(newUser);
     setPage("browse");
@@ -710,7 +709,7 @@ function LoginPage({ t, setPage, handleLogin, lang, setLang, darkMode, setDarkMo
 
 // ─── REGISTER PAGE ────────────────────────────────────────────────────────────
 function RegisterPage({ t, setPage, handleRegister, lang }) {
-  const [form, setForm] = useState({ name:"", email:"", password:"", phone:"", bio:"", country:"Tanzania", region:"", area:"", language: lang });
+  const [form, setForm] = useState({ name:"", email:"", password:"", phone:"", bio:"", country:"Tanzania", region:"", area:"", gender:"", birthDate:"", language: lang });
   const [step, setStep] = useState(1);
   const set = (k,v) => setForm(f=>({...f,[k]:v}));
   const countryData = LOCATIONS[form.country] || LOCATIONS["Other"];
@@ -744,7 +743,23 @@ function RegisterPage({ t, setPage, handleRegister, lang }) {
                 <div className="label">{t.password}</div>
                 <input className="input" type="password" value={form.password} onChange={e=>set("password",e.target.value)} placeholder="Herufi 6 au zaidi"/>
               </div>
-              <button className="btn btn-gold btn-full" onClick={()=>{if(form.name&&form.email&&form.password.length>=6)setStep(2);}}>Endelea →</button>
+              <div style={{marginBottom:"14px"}}>
+                <div className="label">⚤ Jinsia / Gender</div>
+                <select className="select" value={form.gender||""} onChange={e=>set("gender",e.target.value)}>
+                  <option value="">-- Chagua Jinsia --</option>
+                  <option value="male">👨 Mwanaume</option>
+                  <option value="female">👩 Mwanamke</option>
+                  <option value="other">🧑 Nyingine</option>
+                </select>
+              </div>
+              <div style={{marginBottom:"20px"}}>
+                <div className="label">🎂 Tarehe ya Kuzaliwa</div>
+                <input className="input" type="date" value={form.birthDate||""} onChange={e=>set("birthDate",e.target.value)}
+                  max={new Date(new Date().setFullYear(new Date().getFullYear()-18)).toISOString().split("T")[0]}
+                />
+                <div style={{fontSize:"11px",color:"var(--text3)",marginTop:"4px"}}>⚠️ Lazima uwe na umri wa miaka 18+</div>
+              </div>
+              <button className="btn btn-gold btn-full" onClick={()=>{if(form.name&&form.email&&form.password.length>=6&&form.gender&&form.birthDate)setStep(2);else alert("Jaza sehemu zote — jina, email, nywila, jinsia na tarehe ya kuzaliwa");}}>Endelea →</button>
             </>
           )}
           {step === 2 && (
@@ -906,6 +921,9 @@ function ProfileCard({ user, currentUser, t, onLike, liked, isPremium, isBoosted
           <Icon.Heart filled={liked}/>
         </button>
         <div style={{fontSize:"14px",fontWeight:600}}>{user.name}</div>
+        <div style={{fontSize:"12px",color:"rgba(255,255,255,.8)",marginBottom:"2px"}}>
+          {user.gender==="female"?"👩":"👨"} {user.age ? `${user.age} yrs` : ""} {user.gender==="female"?"Female":"Male"}
+        </div>
         <div style={{fontSize:"12px",color:"rgba(255,255,255,.7)",display:"flex",gap:"4px",alignItems:"center",flexWrap:"wrap"}}>
           {LOCATIONS[user.country]?.flag||"🌍"} {user.area ? `${user.area}, ` : ""}{user.region || user.country}
           {user.likedBy?.length > 0 && isPremium && <span style={{marginLeft:"auto"}}>💛 {user.likedBy.length}</span>}
@@ -937,7 +955,11 @@ function ProfileModal({ selectedUser: user, currentUser, t, setModal, handleLike
               {user.isPremium && <span className="badge badge-gold"><Icon.Crown/>Premium</span>}
             </div>
             <h2 className="serif" style={{fontSize:"24px"}}>{user.name}</h2>
-            <p style={{fontSize:"13px",color:"rgba(255,255,255,.7)",marginTop:"4px"}}>{LOCATIONS[user.country]?.flag||"🌍"} {user.area ? `${user.area}, ` : ""}{user.region ? `${user.region}, ` : ""}{user.country}</p>
+            <div style={{display:"flex",gap:"8px",flexWrap:"wrap",marginTop:"6px"}}>
+              <span style={{fontSize:"13px",color:"rgba(255,255,255,.75)"}}>{user.gender==="female"?"👩":"👨"} {user.age ? `${user.age} yrs` : ""}</span>
+              <span style={{fontSize:"13px",color:"rgba(255,255,255,.75)"}}>·</span>
+              <span style={{fontSize:"13px",color:"rgba(255,255,255,.75)"}}>{LOCATIONS[user.country]?.flag||"🌍"} {user.area ? `${user.area}, ` : ""}{user.region ? `${user.region}, ` : ""}{user.country}</span>
+            </div>
           </div>
         </div>
 
@@ -1182,7 +1204,7 @@ function PaymentModal({ modal, t, setModal, handleSubscribe, showToast, currentU
               className="btn btn-gold btn-full"
               style={{textDecoration:"none",padding:"16px",fontSize:"15px",marginBottom:"10px"}}
               onClick={()=>{ setTimeout(()=>{handleSubscribe(plan);setModal(null);}, 3000); }}>
-              💳 Lipa Sasa — TZS {(PLANS[plan].price * 2700).toLocaleString()}
+              💳 Lipa Sasa — TZS {(PLANS[plan].price * 2500).toLocaleString()}
             </a>
             <button className="btn btn-ghost btn-full btn-sm" onClick={()=>{ handleSubscribe(plan); showToast("Malipo yamethibitishwa! ✅","success"); }}>
               ✅ Nimethibitisha malipo yangu
@@ -1369,14 +1391,15 @@ function MyProfilePage({ currentUser, t, setModal, isUserPremium, isBoosted, han
 
 // ─── EDIT PROFILE MODAL ───────────────────────────────────────────────────────
 function EditProfileModal({ currentUser, setCurrentUser, db, updateDb, t, setModal, showToast }) {
-  const [form, setForm] = useState({ name: currentUser.name||"", bio: currentUser.bio||"", phone: currentUser.phone||"", country: currentUser.country||"Tanzania", region: currentUser.region||"", area: currentUser.area||"" });
+  const [form, setForm] = useState({ name: currentUser.name||"", bio: currentUser.bio||"", phone: currentUser.phone||"", country: currentUser.country||"Tanzania", region: currentUser.region||"", area: currentUser.area||"", gender: currentUser.gender||"", birthDate: currentUser.birthDate||"" });
   const set = (k,v) => setForm(f=>({...f,[k]:v}));
   const countryData = LOCATIONS[form.country] || LOCATIONS["Other"];
   const regions = Object.keys(countryData.regions);
   const areas = form.region ? (countryData.regions[form.region] || []) : [];
 
   const save = () => {
-    const updated = { ...currentUser, ...form };
+    const age = form.birthDate ? new Date().getFullYear() - new Date(form.birthDate).getFullYear() : currentUser.age;
+    const updated = { ...currentUser, ...form, age };
     const updatedUsers = db.users.map(u => u.id === currentUser.id ? updated : u);
     setCurrentUser(updated);
     updateDb({ users: updatedUsers });
@@ -1422,6 +1445,21 @@ function EditProfileModal({ currentUser, setCurrentUser, db, updateDb, t, setMod
               📍 <strong style={{color:"var(--accent2)"}}>{form.area}, {form.region}</strong> — {LOCATIONS[form.country]?.flag} {form.country}
             </div>
           )}
+          <div>
+            <div className="label">⚤ Jinsia / Gender</div>
+            <select className="select" value={form.gender} onChange={e=>set("gender",e.target.value)}>
+              <option value="">-- Chagua --</option>
+              <option value="male">👨 Mwanaume</option>
+              <option value="female">👩 Mwanamke</option>
+              <option value="other">🧑 Nyingine</option>
+            </select>
+          </div>
+          <div>
+            <div className="label">🎂 Tarehe ya Kuzaliwa</div>
+            <input className="input" type="date" value={form.birthDate} onChange={e=>set("birthDate",e.target.value)}
+              max={new Date(new Date().setFullYear(new Date().getFullYear()-18)).toISOString().split("T")[0]}
+            />
+          </div>
           <div style={{padding:"10px 12px",background:"var(--bg2)",borderRadius:"10px",fontSize:"12px",color:"var(--text3)"}}>
             📸 Picha/video upload inahitaji Supabase Storage — tutaconnect hivi karibuni.
           </div>
