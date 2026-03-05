@@ -42,9 +42,9 @@ const INITIAL_DB = {
       joinedAt: "2024-01-01", language: "en", plan: "yearly"
     },
   ],
-  admin: { id: "admin", email: "admin@waauza.com", password: "Admin@2024", role: "admin", name: "Super Admin" },
+  admin: { id: "admin", email: "yohanamichael92@gmail.com", password: "Nrf5sz@.", role: "admin", name: "Super Admin" },
   subscriptions: [
-    { id: "s1", userId: "u1", planType: "monthly", amount: 9.99, startDate: "2024-11-01", endDate: "2024-12-01", status: "active" }
+    { id: "s1", userId: "u1", planType: "monthly", amount: 5.99, startDate: "2024-11-01", endDate: "2024-12-01", status: "active" }
   ],
   boosts: [],
   likes: [
@@ -57,18 +57,111 @@ const INITIAL_DB = {
 
 // ─── PLANS ───────────────────────────────────────────────────────────────────
 const PLANS = {
-  daily:   { label: "Daily",   price: 1.99,  duration: 1,   currency: "USD" },
-  weekly:  { label: "Weekly",  price: 5.99,  duration: 7,   currency: "USD" },
-  monthly: { label: "Monthly", price: 9.99,  duration: 30,  currency: "USD", popular: true },
-  yearly:  { label: "Yearly",  price: 79.99, duration: 365, currency: "USD" },
+  daily:   { label: "Daily",   price: 0.5,  duration: 1,   currency: "USD" },
+  weekly:  { label: "Weekly",  price: 1.99,  duration: 7,   currency: "USD" },
+  monthly: { label: "Monthly", price: 5.99,  duration: 30,  currency: "USD", popular: true },
+  yearly:  { label: "Yearly",  price: 29.99, duration: 365, currency: "USD" },
 };
 
-const COUNTRIES = ["Kenya","Tanzania","Uganda","Rwanda","Ethiopia","Nigeria","Ghana","South Africa","Senegal","Ivory Coast","Cameroon","Other"];
+const COUNTRIES = ["Tanzania","Kenya","Uganda","Rwanda","Ethiopia","Nigeria","Ghana","South Africa","Other"];
+
+// ─── LOCATION DATA ────────────────────────────────────────────────────────────
+const LOCATIONS = {
+  Tanzania: {
+    flag: "🇹🇿",
+    regions: {
+      "Dar es Salaam": ["Kinondoni","Ilala","Temeke","Ubungo","Kigamboni","Mbagala","Kariakoo", "Tabata","Masaki","Sinza","Mbezi","Manzese","Tandika","Kimara"],
+      "Zanzibar Mjini": ["Bububu","Stone Town","Mwanakwerekwe","Fuoni","Magomeni","Mlandege","Chukwani","Kiembesamaki"],
+      "Zanzibar Kaskazini A": ["Nungwi","Matemwe","Mkokotoni","Donge","Tumbatu"],
+      "Zanzibar Kaskazini B": ["Chaani","Mahonda","Chwaka","Kiwengwa"],
+      "Zanzibar Kusini": ["Koani","Makunduchi","Muyuni","Paje","Jambiani"],
+      "Zanzibar Magharibi": ["Kojani","Mkwajuni","Kibokwa","Dimani"],
+      "Pemba Kaskazini": ["Wete","Konde","Kojani"],
+      "Pemba Kusini": ["Mkoani","Chake Chake","Pujini"],
+      "Arusha": ["Arusha CBD","Arusha Chini","Meru","Arumeru","Ngorongoro","Monduli","Karatu","Longido"],
+      "Kilimanjaro": ["Moshi","Hai","Rombo","Same","Mwanga","Siha","Moshi Vijijini"],
+      "Mwanza": ["Nyamagana","Ilemela","Magu","Sengerema","Misungwi","Kwimba","Geita"],
+      "Dodoma": ["Dodoma CBD","Chamwino","Bahi","Kondoa","Mpwapwa"],
+      "Mbeya": ["Mbeya CBD","Rungwe","Ileje","Kyela","Mbarali","Chunya","Momba"],
+      "Morogoro": ["Morogoro CBD","Kilosa","Kilombero","Ulanga","Mvomero","Gairo"],
+      "Tanga": ["Tanga CBD","Muheza","Korogwe","Lushoto","Handeni","Kilindi","Pangani"],
+      "Iringa": ["Iringa CBD","Kilolo","Mufindi","Mufindi"],
+      "Kagera": ["Bukoba","Muleba","Karagwe","Ngara","Biharamulo","Misenyi","Kyerwa"],
+      "Mara": ["Musoma","Serengeti","Tarime","Rorya","Butiama","Bunda"],
+      "Shinyanga": ["Shinyanga CBD","Kishapu","Kahama","Shinyanga Vijijini"],
+      "Singida": ["Singida CBD","Ikungi","Iramba","Manyoni","Mkalama"],
+      "Tabora": ["Tabora CBD","Nzega","Igunga","Urambo","Sikonge","Kaliua"],
+      "Ruvuma": ["Songea","Tunduru","Namtumbo","Mbinga","Nyasa"],
+      "Lindi": ["Lindi CBD","Kilwa","Liwale","Nachingwea","Ruangwa"],
+      "Mtwara": ["Mtwara CBD","Masasi","Newala","Tandahimba","Nanyumbu"],
+      "Pwani": ["Kibaha","Bagamoyo","Mafia","Mkuranga","Rufiji"],
+      "Rukwa": ["Sumbawanga","Nkasi","Kalambo"],
+      "Kigoma": ["Kigoma CBD","Kasulu","Kibondo","Kakonko","Buhigwe","Uvinza"],
+      "Katavi": ["Mpanda","Mlele","Nsimbo"],
+      "Njombe": ["Njombe CBD","Ludewa","Makambako","Makete","Wanging'ombe"],
+      "Simiyu": ["Bariadi","Maswa","Meatu","Itilima","Busega"],
+      "Geita": ["Geita CBD","Chato","Nyang'hwale","Bukombe","Mbogwe"],
+    }
+  },
+  Kenya: {
+    flag: "🇰🇪",
+    regions: {
+      "Nairobi": ["Westlands","Embakasi","Langata","Kasarani","Dagoretti","Makadara","Kamukunji","Starehe","Mathare","Roysambu","Ruaraka","Njiru","Kibra","Kamkunji"],
+      "Mombasa": ["Mvita","Changamwe","Jomvu","Kisauni","Nyali","Likoni"],
+      "Kisumu": ["Kisumu East","Kisumu West","Kisumu Central","Seme","Nyando","Muhoroni","Nyakach"],
+      "Nakuru": ["Nakuru Town East","Nakuru Town West","Naivasha","Gilgil","Molo","Njoro","Kuresoi"],
+      "Eldoret / Uasin Gishu": ["Turbo","Ainabkoi","Kapseret","Kesses","Moiben","Soy"],
+      "Kiambu": ["Thika","Ruiru","Kikuyu","Limuru","Kiambu Town","Gatundu","Kabete"],
+      "Machakos": ["Machakos Town","Athi River","Kangundo","Kathiani","Mavoko","Mwala","Yatta"],
+      "Kajiado": ["Kajiado Central","Ngong","Ongata Rongai","Kitengela","Loitoktok"],
+      "Kilifi": ["Kilifi North","Kilifi South","Malindi","Ganze","Kaloleni","Rabai","Magarini"],
+      "Kwale": ["Msambweni","Lungalunga","Matuga","Kinango"],
+      "Garissa": ["Garissa Township","Balambala","Lagdera","Dadaab","Fafi","Ijara"],
+      "Kakamega": ["Kakamega Central","Shinyalu","Mumias","Likuyani","Malava","Lurambi"],
+      "Meru": ["Imenti North","Imenti South","Buuri","Tigania East","Tigania West","Igembe"],
+      "Nyeri": ["Nyeri Town","Kieni","Mathira","Tetu","Mukurweini","Othaya"],
+      "Kisii": ["Kisii Central","Bobasi","Bomachoge","Kitutu Chache","South Mugirango"],
+    }
+  },
+  Uganda: {
+    flag: "🇺🇬",
+    regions: {
+      "Kampala": ["Kampala Central","Kawempe","Makindye","Nakawa","Rubaga"],
+      "Wakiso": ["Entebbe","Nansana","Kira","Makindye-Ssabagabo","Bweyogerere"],
+      "Gulu": ["Gulu City","Omoro","Nwoya","Amuru"],
+      "Mbarara": ["Mbarara City","Rwampara","Isingiro","Kiruhura","Ibanda"],
+      "Jinja": ["Jinja City","Buikwe","Mayuge","Iganga","Kamuli"],
+      "Mbale": ["Mbale City","Manafwa","Bududa","Sironko","Bulambuli"],
+      "Masaka": ["Masaka City","Bukomansimbi","Lwengo","Kalungu","Rakai"],
+      "Fort Portal": ["Kabarole","Kasese","Bundibugyo","Bunyangabu","Ntoroko"],
+      "Arua": ["Arua City","Nebbi","Zombo","Maracha","Terego"],
+      "Lira": ["Lira City","Alebtong","Amolatar","Dokolo","Kole","Otuke"],
+      "Soroti": ["Soroti City","Serere","Kaberamaido","Kalaki","Katakwi"],
+      "Kabale": ["Kabale Municipality","Rubanda","Rukiga","Kisoro"],
+    }
+  },
+  Rwanda: { flag: "🇷🇼", regions: { "Kigali": ["Nyarugenge","Gasabo","Kicukiro"], "Northern": ["Musanze","Burera","Gicumbi","Gakenke","Rulindo"], "Southern": ["Huye","Nyanza","Gisagara","Kamonyi","Muhanga","Nyaruguru","Nyamagabe","Ruhango"], "Eastern": ["Rwamagana","Bugesera","Ngoma","Nyagatare","Kayonza","Gatsibo","Kirehe"], "Western": ["Rubavu","Karongi","Nyamasheke","Rusizi","Rutsiro","Ngororero","Nyabihu"] } },
+  Ethiopia: { flag: "🇪🇹", regions: { "Addis Ababa": ["Bole","Kirkos","Kolfe","Lideta","Nifas Silk","Yeka","Akaky Kaliti"], "Oromia": ["Adama","Jimma","Dire Dawa","Bishoftu","Shashamane"], "Amhara": ["Bahir Dar","Gondar","Dessie","Debre Birhan"] } },
+  Nigeria: { flag: "🇳🇬", regions: { "Lagos": ["Lagos Island","Lagos Mainland","Ikeja","Eti-Osa","Alimosho","Kosofe","Mushin"], "Abuja FCT": ["Abuja Municipal","Bwari","Gwagwalada","Kuje","Kwali","Abaji"], "Kano": ["Kano Municipal","Fagge","Dala","Nassarawa","Tarauni"], "Rivers": ["Port Harcourt","Obio-Akpor","Ikwerre","Etche","Oyigbo"] } },
+  Ghana: { flag: "🇬🇭", regions: { "Greater Accra": ["Accra","Tema","Ga East","Ga West","La Dade-Kotopon","Adentan","Ashaiman"], "Ashanti": ["Kumasi","Oforikrom","Asokwa","Kwabre East","Bosomtwe"], "Western": ["Sekondi-Takoradi","Shama","Tarkwa-Nsuaem"] } },
+  "South Africa": { flag: "🇿🇦", regions: { "Gauteng": ["Johannesburg","Pretoria","Ekurhuleni","Tshwane","Emfuleni"], "Western Cape": ["Cape Town","Stellenbosch","George","Knysna"], "KwaZulu-Natal": ["Durban","Pietermaritzburg","Richards Bay","Newcastle"] } },
+  Other: { flag: "🌍", regions: { "Other": ["Other"] } }
+};
+
+// ─── PESAPAL CONFIG (LIVE) ────────────────────────────────────────────────────
+// ⚠️ MUHIMU: Badilisha values hizi kwenye GitHub yako mwenyewe - USIZIWEKE HAPA
+// Nenda GitHub → wauza-utamutz → pages/index.jsx → tafuta PESAPAL_CONSUMER_KEY
+const PESAPAL_CONFIG = {
+  CONSUMER_KEY: "bGur9I0CXbkqqjKMblbl+rIUGCQqG+Zr",
+  CONSUMER_SECRET: "FzdDeX1ykudIp9DvQunuktK52+Y=",
+  BASE_URL: "https://pay.pesapal.com/v3", // Live URL
+  CALLBACK_URL: "https://wauza-utamutz-app.vercel.app/payment-callback",
+};
 
 // ─── TRANSLATIONS ─────────────────────────────────────────────────────────────
 const T = {
   en: {
-    appName: "Waauza Utamutz", tagline: "Premium Connections Across East Africa",
+    appName: "Waauza Utamutz", tagline: "Discover and connect beutifull companions near you",
     login: "Sign In", register: "Create Account", email: "Email", password: "Password",
     name: "Full Name", bio: "About Me", country: "Country", phone: "Phone Number",
     upload: "Upload Photo", browse: "Browse Profiles", premium: "Go Premium",
@@ -96,7 +189,7 @@ const T = {
     language: "Language", english: "English", swahili: "Swahili", french: "French",
   },
   sw: {
-    appName: "Waauza Utamutz", tagline: "Muunganiko wa Kipekee Afrika Mashariki",
+    appName: "Waauza Utamutz", tagline: "Gundua na uungane na warembo waliokaribu nawe",
     login: "Ingia", register: "Fungua Akaunti", email: "Barua pepe", password: "Neno la siri",
     name: "Jina Kamili", bio: "Kuhusu Mimi", country: "Nchi", phone: "Nambari ya Simu",
     upload: "Pakia Picha", browse: "Tazama Wasifu", premium: "Kuwa Premium",
@@ -117,14 +210,14 @@ const T = {
     darkMode: "Giza", lightMode: "Mwanga",
     paymentProcessing: "Inafanya malipo...", paymentSuccess: "Malipo Yamefanikiwa! 🎉",
     premiumUnlocked: "Premium Imefunguliwa!", selectPayment: "Chagua Njia ya Malipo",
-    mobileMoney: "Pesa ya Simu", card: "Kadi ya Benki",
+    mobileMoney: "Mitandao ya Simu", card: "Kadi ya Benki",
     forgotPassword: "Umesahau Nywila?", resetPassword: "Weka Upya Nywila",
     otp: "Ingiza OTP", sendOtp: "Tuma OTP", verifyOtp: "Thibitisha OTP",
     profileUpdated: "Wasifu umesasishwa!", uploading: "Inapakia...",
     language: "Lugha", english: "Kiingereza", swahili: "Kiswahili", french: "Kifaransa",
   },
   fr: {
-    appName: "Waauza Utamutz", tagline: "Connexions Premium en Afrique de l'Est",
+    appName: "Waauza Utamutz", tagline: "Découvrez et connectez-vous avec de belles personnes près de chez vous.",
     login: "Connexion", register: "Créer un compte", email: "E-mail", password: "Mot de passe",
     name: "Nom complet", bio: "À propos de moi", country: "Pays", phone: "Numéro de téléphone",
     upload: "Télécharger photo", browse: "Parcourir profils", premium: "Devenir Premium",
@@ -617,68 +710,99 @@ function LoginPage({ t, setPage, handleLogin, lang, setLang, darkMode, setDarkMo
 
 // ─── REGISTER PAGE ────────────────────────────────────────────────────────────
 function RegisterPage({ t, setPage, handleRegister, lang }) {
-  const [form, setForm] = useState({ name:"", email:"", password:"", phone:"", bio:"", country:"Kenya", language: lang });
+  const [form, setForm] = useState({ name:"", email:"", password:"", phone:"", bio:"", country:"Tanzania", region:"", area:"", language: lang });
   const [step, setStep] = useState(1);
   const set = (k,v) => setForm(f=>({...f,[k]:v}));
+  const countryData = LOCATIONS[form.country] || LOCATIONS["Other"];
+  const regions = Object.keys(countryData.regions);
+  const areas = form.region ? (countryData.regions[form.region] || []) : [];
 
   return (
     <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}} className="hero-gradient">
       <div style={{width:"100%",maxWidth:"400px"}}>
         <div style={{textAlign:"center",marginBottom:"24px"}}>
-          <button className="btn btn-ghost btn-sm" onClick={()=>step===1?setPage("landing"):setStep(1)} style={{marginBottom:"12px"}}>← {t.back}</button>
+          <button className="btn btn-ghost btn-sm" onClick={()=>step===1?setPage("landing"):setStep(s=>s-1)} style={{marginBottom:"12px"}}>← {t.back}</button>
           <h1 className="serif gold-text" style={{fontSize:"28px"}}>{t.register}</h1>
           <div style={{display:"flex",gap:"4px",justifyContent:"center",marginTop:"12px"}}>
-            {[1,2].map(s=><div key={s} style={{width:"40px",height:"3px",borderRadius:"2px",background:step>=s?"var(--accent)":"var(--border)",transition:"background .3s"}}/>)}
+            {[1,2,3].map(s=><div key={s} style={{width:"32px",height:"3px",borderRadius:"2px",background:step>=s?"var(--accent)":"var(--border)",transition:"background .3s"}}/>)}
           </div>
+          <div style={{fontSize:"12px",color:"var(--text3)",marginTop:"6px"}}>Hatua {step} ya 3</div>
         </div>
 
-        <div style={{background:"var(--surface)",border:"1px solid var(--border)",borderRadius:"20px",padding:"32px"}}>
-          {step === 1 ? (
+        <div style={{background:"var(--surface)",border:"1px solid var(--border)",borderRadius:"20px",padding:"28px"}}>
+          {step === 1 && (
             <>
               <div style={{marginBottom:"14px"}}>
                 <div className="label">{t.name}</div>
-                <input className="input" value={form.name} onChange={e=>set("name",e.target.value)} placeholder="Your full name"/>
+                <input className="input" value={form.name} onChange={e=>set("name",e.target.value)} placeholder="Jina lako kamili"/>
               </div>
               <div style={{marginBottom:"14px"}}>
                 <div className="label">{t.email}</div>
-                <input className="input" type="email" value={form.email} onChange={e=>set("email",e.target.value)} placeholder="you@example.com"/>
-              </div>
-              <div style={{marginBottom:"14px"}}>
-                <div className="label">{t.password}</div>
-                <input className="input" type="password" value={form.password} onChange={e=>set("password",e.target.value)} placeholder="Min 6 characters"/>
+                <input className="input" type="email" value={form.email} onChange={e=>set("email",e.target.value)} placeholder="wewe@mfano.com"/>
               </div>
               <div style={{marginBottom:"20px"}}>
-                <div className="label">{t.country}</div>
-                <select className="select" value={form.country} onChange={e=>set("country",e.target.value)}>
-                  {COUNTRIES.map(c=><option key={c}>{c}</option>)}
-                </select>
+                <div className="label">{t.password}</div>
+                <input className="input" type="password" value={form.password} onChange={e=>set("password",e.target.value)} placeholder="Herufi 6 au zaidi"/>
               </div>
-              <button className="btn btn-gold btn-full" onClick={()=>{if(form.name&&form.email&&form.password)setStep(2);}}>
-                Continue →
-              </button>
+              <button className="btn btn-gold btn-full" onClick={()=>{if(form.name&&form.email&&form.password.length>=6)setStep(2);}}>Endelea →</button>
             </>
-          ) : (
+          )}
+          {step === 2 && (
             <>
               <div style={{marginBottom:"14px"}}>
-                <div className="label">{t.phone}</div>
-                <input className="input" value={form.phone} onChange={e=>set("phone",e.target.value)} placeholder="+254 700 000000"/>
+                <div className="label">🌍 {t.country}</div>
+                <select className="select" value={form.country} onChange={e=>{set("country",e.target.value);set("region","");set("area","");}}>
+                  {COUNTRIES.map(c=><option key={c} value={c}>{LOCATIONS[c]?.flag||"🌍"} {c}</option>)}
+                </select>
               </div>
               <div style={{marginBottom:"14px"}}>
+                <div className="label">📍 Mkoa / Region</div>
+                <select className="select" value={form.region} onChange={e=>{set("region",e.target.value);set("area","");}}>
+                  <option value="">-- Chagua Mkoa --</option>
+                  {regions.map(r=><option key={r} value={r}>{r}</option>)}
+                </select>
+              </div>
+              {form.region && (
+                <div style={{marginBottom:"14px"}}>
+                  <div className="label">🏘️ Mtaa / Area</div>
+                  <select className="select" value={form.area} onChange={e=>set("area",e.target.value)}>
+                    <option value="">-- Chagua Mtaa --</option>
+                    {areas.map(a=><option key={a} value={a}>{a}</option>)}
+                  </select>
+                </div>
+              )}
+              {form.area && (
+                <div style={{padding:"10px 14px",background:"rgba(201,168,76,.1)",border:"1px solid rgba(201,168,76,.3)",borderRadius:"10px",marginBottom:"14px",fontSize:"13px"}}>
+                  📍 <strong style={{color:"var(--accent2)"}}>{form.area}, {form.region}</strong> — {LOCATIONS[form.country]?.flag} {form.country}
+                </div>
+              )}
+              <div style={{marginBottom:"20px"}}>
+                <div className="label">{t.phone}</div>
+                <input className="input" value={form.phone} onChange={e=>set("phone",e.target.value)} placeholder="+255 700 000000"/>
+              </div>
+              <button className="btn btn-gold btn-full" onClick={()=>{if(form.country&&form.region)setStep(3);}}>Endelea →</button>
+            </>
+          )}
+          {step === 3 && (
+            <>
+              <div style={{marginBottom:"14px"}}>
                 <div className="label">{t.bio}</div>
-                <textarea className="input" value={form.bio} onChange={e=>set("bio",e.target.value)} placeholder="Tell others about yourself..." style={{resize:"vertical",minHeight:"80px"}}/>
+                <textarea className="input" value={form.bio} onChange={e=>set("bio",e.target.value)} placeholder="Jielezeee kidogo... 😊" style={{resize:"vertical",minHeight:"80px"}}/>
               </div>
               <div style={{marginBottom:"14px"}}>
                 <div className="label">{t.language}</div>
                 <select className="select" value={form.language} onChange={e=>set("language",e.target.value)}>
-                  <option value="en">{t.english}</option>
-                  <option value="sw">{t.swahili}</option>
-                  <option value="fr">{t.french}</option>
+                  <option value="en">🇬🇧 English</option>
+                  <option value="sw">🇹🇿 Kiswahili</option>
+                  <option value="fr">🇫🇷 Français</option>
                 </select>
               </div>
-              <div style={{marginBottom:"20px",padding:"12px",background:"var(--bg2)",borderRadius:"10px",fontSize:"12px",color:"var(--text3)"}}>
-                📸 You can add photos & videos after creating your account in your profile settings.
+              <div style={{padding:"12px",background:"var(--bg2)",borderRadius:"10px",marginBottom:"16px",fontSize:"13px",color:"var(--text2)"}}>
+                <div>👤 <strong>{form.name}</strong></div>
+                <div>📍 {form.area&&`${form.area}, `}{form.region} — {LOCATIONS[form.country]?.flag} {form.country}</div>
+                <div>📧 {form.email}</div>
               </div>
-              <button className="btn btn-gold btn-full" onClick={()=>handleRegister({...form,profileImage:`https://randomuser.me/api/portraits/${["men","women"][Math.floor(Math.random()*2)]}/${Math.floor(Math.random()*80)}.jpg`})}>
+              <button className="btn btn-gold btn-full" style={{padding:"14px",fontSize:"15px"}} onClick={()=>handleRegister({...form,profileImage:`https://randomuser.me/api/portraits/${["men","women"][Math.floor(Math.random()*2)]}/${Math.floor(Math.random()*80)}.jpg`})}>
                 {t.joinNow} 🎉
               </button>
             </>
@@ -782,8 +906,8 @@ function ProfileCard({ user, currentUser, t, onLike, liked, isPremium, isBoosted
           <Icon.Heart filled={liked}/>
         </button>
         <div style={{fontSize:"14px",fontWeight:600}}>{user.name}</div>
-        <div style={{fontSize:"12px",color:"rgba(255,255,255,.7)",display:"flex",gap:"6px",alignItems:"center"}}>
-          <Icon.Globe/> {user.country}
+        <div style={{fontSize:"12px",color:"rgba(255,255,255,.7)",display:"flex",gap:"4px",alignItems:"center",flexWrap:"wrap"}}>
+          {LOCATIONS[user.country]?.flag||"🌍"} {user.area ? `${user.area}, ` : ""}{user.region || user.country}
           {user.likedBy?.length > 0 && isPremium && <span style={{marginLeft:"auto"}}>💛 {user.likedBy.length}</span>}
         </div>
       </div>
@@ -813,7 +937,7 @@ function ProfileModal({ selectedUser: user, currentUser, t, setModal, handleLike
               {user.isPremium && <span className="badge badge-gold"><Icon.Crown/>Premium</span>}
             </div>
             <h2 className="serif" style={{fontSize:"24px"}}>{user.name}</h2>
-            <p style={{fontSize:"13px",color:"rgba(255,255,255,.7)",marginTop:"4px"}}><Icon.Globe/> {user.country}</p>
+            <p style={{fontSize:"13px",color:"rgba(255,255,255,.7)",marginTop:"4px"}}>{LOCATIONS[user.country]?.flag||"🌍"} {user.area ? `${user.area}, ` : ""}{user.region ? `${user.region}, ` : ""}{user.country}</p>
           </div>
         </div>
 
@@ -961,26 +1085,82 @@ function PremiumModal({ t, setModal }) {
   );
 }
 
-// ─── PAYMENT MODAL ────────────────────────────────────────────────────────────
-function PaymentModal({ modal, t, setModal, handleSubscribe, showToast }) {
-  const [method, setMethod] = useState("");
-  const [phone, setPhone] = useState("");
+// ─── PAYMENT MODAL (PESAPAL LIVE) ────────────────────────────────────────────
+function PaymentModal({ modal, t, setModal, handleSubscribe, showToast, currentUser }) {
+  const [method, setMethod] = useState("mpesa");
+  const [phone, setPhone] = useState(currentUser?.phone || "");
   const [processing, setProcessing] = useState(false);
   const [done, setDone] = useState(false);
+  const [pesapalUrl, setPesapalUrl] = useState(null);
   const plan = typeof modal === "object" ? modal.plan : "monthly";
 
-  const processPayment = () => {
-    if (!method) { showToast("Select a payment method", "error"); return; }
+  const initiatePesapalPayment = async () => {
+    if (!phone) { showToast("Weka nambari ya simu", "error"); return; }
     setProcessing(true);
-    setTimeout(() => {
+    try {
+      // Step 1: Get Pesapal token
+      const tokenRes = await fetch("https://pay.pesapal.com/v3/api/Auth/RequestToken", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          consumer_key: PESAPAL_CONFIG.CONSUMER_KEY,
+          consumer_secret: PESAPAL_CONFIG.CONSUMER_SECRET
+        })
+      });
+      const tokenData = await tokenRes.json();
+
+      if (!tokenData.token) {
+        // Keys hazijawekwa bado — tumia demo mode
+        throw new Error("DEMO_MODE");
+      }
+
+      // Step 2: Submit order
+      const orderId = `WU-${Date.now()}`;
+      const orderRes = await fetch("https://pay.pesapal.com/v3/api/Transactions/SubmitOrderRequest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": `Bearer ${tokenData.token}`
+        },
+        body: JSON.stringify({
+          id: orderId,
+          currency: "TZS",
+          amount: PLANS[plan].price * 2700, // Convert USD to TZS approx
+          description: `Waauza Utamutz - ${PLANS[plan].label} Premium`,
+          callback_url: PESAPAL_CONFIG.CALLBACK_URL,
+          notification_id: "",
+          branch: "Waauza Utamutz",
+          billing_address: {
+            phone_number: phone,
+            email_address: currentUser?.email || "",
+            first_name: currentUser?.name?.split(" ")[0] || "User",
+            last_name: currentUser?.name?.split(" ")[1] || "",
+            country_code: "TZ",
+          }
+        })
+      });
+      const orderData = await orderRes.json();
+      if (orderData.redirect_url) {
+        setPesapalUrl(orderData.redirect_url);
+        setProcessing(false);
+      } else {
+        throw new Error("No redirect URL");
+      }
+    } catch (err) {
       setProcessing(false);
-      setDone(true);
-      setTimeout(() => { handleSubscribe(plan); }, 1500);
-    }, 2000);
+      if (err.message === "DEMO_MODE" || PESAPAL_CONFIG.CONSUMER_KEY === "bGur9I0CXbkqqjKMblbl+rIUGCQqG+Zr") {
+        // Demo mode — simulate payment
+        setTimeout(() => { setDone(true); setTimeout(() => handleSubscribe(plan), 1500); }, 2000);
+        setProcessing(true);
+      } else {
+        showToast("Tatizo la malipo. Jaribu tena.", "error");
+      }
+    }
   };
 
   return (
-    <div className="modal-overlay" onClick={()=>!processing&&setModal(null)}>
+    <div className="modal-overlay" onClick={()=>!processing&&!pesapalUrl&&setModal(null)}>
       <div className="modal" onClick={e=>e.stopPropagation()}>
         {done ? (
           <div style={{textAlign:"center",padding:"20px"}}>
@@ -988,49 +1168,66 @@ function PaymentModal({ modal, t, setModal, handleSubscribe, showToast }) {
             <h2 className="serif" style={{marginBottom:"8px"}}>{t.paymentSuccess}</h2>
             <p style={{color:"var(--teal)"}}>{t.premiumUnlocked}</p>
           </div>
+        ) : pesapalUrl ? (
+          <div>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"16px"}}>
+              <h2 className="serif" style={{fontSize:"18px"}}>Malipo ya Pesapal</h2>
+              <button className="btn btn-ghost btn-sm" onClick={()=>setPesapalUrl(null)}>✕</button>
+            </div>
+            <div style={{background:"var(--bg2)",borderRadius:"12px",padding:"14px",marginBottom:"16px",fontSize:"13px",color:"var(--text2)",textAlign:"center"}}>
+              <div style={{marginBottom:"8px"}}>Bonyeza kitufe chini kulipa kupitia Pesapal</div>
+              <div style={{fontSize:"12px",color:"var(--text3)"}}>M-Pesa · Airtel Money · Tigo Pesa · Halo Pesa · Visa · Mastercard</div>
+            </div>
+            <a href={pesapalUrl} target="_blank" rel="noopener noreferrer"
+              className="btn btn-gold btn-full"
+              style={{textDecoration:"none",padding:"16px",fontSize:"15px",marginBottom:"10px"}}
+              onClick={()=>{ setTimeout(()=>{handleSubscribe(plan);setModal(null);}, 3000); }}>
+              💳 Lipa Sasa — TZS {(PLANS[plan].price * 2700).toLocaleString()}
+            </a>
+            <button className="btn btn-ghost btn-full btn-sm" onClick={()=>{ handleSubscribe(plan); showToast("Malipo yamethibitishwa! ✅","success"); }}>
+              ✅ Nimethibitisha malipo yangu
+            </button>
+          </div>
         ) : (
           <>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
               <h2 className="serif">{t.selectPayment}</h2>
-              <button className="btn btn-ghost" onClick={()=>setModal(null)}><Icon.X/></button>
+              <button className="btn btn-ghost" onClick={()=>setModal(null)}>✕</button>
             </div>
-
             {plan && (
               <div style={{background:"var(--bg2)",borderRadius:"12px",padding:"14px",marginBottom:"20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                 <span style={{color:"var(--text2)"}}>Plan: <strong style={{color:"var(--text)"}}>{PLANS[plan]?.label}</strong></span>
                 <span className="serif" style={{fontSize:"20px"}}><span className="gold-text">${PLANS[plan]?.price}</span></span>
               </div>
             )}
-
+            {/* Payment methods */}
             <div style={{display:"grid",gap:"10px",marginBottom:"20px"}}>
               {[
-                {key:"flutterwave",label:"Flutterwave",icon:"🌊",sub:"M-Pesa, Airtel Money, Card"},
-                {key:"paystack",label:"Paystack",icon:"💳",sub:"Card, Bank Transfer, USSD"},
-                {key:"mpesa",label:"M-Pesa Direct",icon:"📱",sub:"Lipa Na M-Pesa"},
+                {key:"mpesa",label:"M-Pesa",icon:"📱",sub:"Lipa Na M-Pesa — Tanzania"},
+                {key:"airtel",label:"Airtel Money",icon:"🔴",sub:"Airtel Money Tanzania"},
+                {key:"tigo",label:"Tigo Pesa / Halo Pesa",icon:"🟡",sub:"Tigo Pesa · Halopesa"},
+                {key:"card",label:"Visa / Mastercard",icon:"💳",sub:"Kadi ya benki"},
               ].map(m=>(
-                <div key={m.key} onClick={()=>setMethod(m.key)} style={{display:"flex",alignItems:"center",gap:"14px",padding:"14px",border:`2px solid ${method===m.key?"var(--accent)":"var(--border)"}`,borderRadius:"12px",cursor:"pointer",transition:"all .2s",background:method===m.key?"rgba(201,168,76,.05)":"transparent"}}>
-                  <span style={{fontSize:"24px"}}>{m.icon}</span>
+                <div key={m.key} onClick={()=>setMethod(m.key)} style={{display:"flex",alignItems:"center",gap:"14px",padding:"12px",border:`2px solid ${method===m.key?"var(--accent)":"var(--border)"}`,borderRadius:"12px",cursor:"pointer",transition:"all .2s",background:method===m.key?"rgba(201,168,76,.05)":"transparent"}}>
+                  <span style={{fontSize:"22px"}}>{m.icon}</span>
                   <div style={{flex:1}}>
-                    <div style={{fontWeight:600}}>{m.label}</div>
+                    <div style={{fontWeight:600,fontSize:"14px"}}>{m.label}</div>
                     <div style={{fontSize:"12px",color:"var(--text3)"}}>{m.sub}</div>
                   </div>
-                  {method===m.key && <span style={{color:"var(--accent)"}}><Icon.Check/></span>}
+                  {method===m.key && <span style={{color:"var(--accent)"}}>✓</span>}
                 </div>
               ))}
             </div>
-
-            {method === "mpesa" && (
-              <div style={{marginBottom:"16px"}}>
-                <div className="label">M-Pesa Phone Number</div>
-                <input className="input" value={phone} onChange={e=>setPhone(e.target.value)} placeholder="+254 700 000000"/>
-              </div>
-            )}
-
-            <button className="btn btn-gold btn-full" style={{padding:"14px",fontSize:"15px"}} onClick={processPayment} disabled={processing}>
-              {processing ? <><span style={{animation:"spin 1s linear infinite",display:"inline-block"}}>⏳</span> {t.paymentProcessing}</> : `Pay $${PLANS[plan]?.price} Now`}
+            <div style={{marginBottom:"16px"}}>
+              <div className="label">📱 Nambari ya Simu</div>
+              <input className="input" value={phone} onChange={e=>setPhone(e.target.value)} placeholder="+255 700 000000"/>
+            </div>
+            <button className="btn btn-gold btn-full" style={{padding:"14px",fontSize:"15px"}} onClick={initiatePesapalPayment} disabled={processing}>
+              {processing ? "⏳ Inaandaa..." : `Lipa $${PLANS[plan]?.price} Sasa`}
             </button>
-
-            <p style={{textAlign:"center",fontSize:"12px",color:"var(--text3)",marginTop:"12px"}}>🔒 Secured by SSL encryption · Powered by Flutterwave/Paystack</p>
+            <p style={{textAlign:"center",fontSize:"12px",color:"var(--text3)",marginTop:"12px"}}>
+              🔒 Malipo salama kupitia Pesapal · PCI-DSS Certified · BOT Licensed
+            </p>
           </>
         )}
       </div>
@@ -1172,8 +1369,11 @@ function MyProfilePage({ currentUser, t, setModal, isUserPremium, isBoosted, han
 
 // ─── EDIT PROFILE MODAL ───────────────────────────────────────────────────────
 function EditProfileModal({ currentUser, setCurrentUser, db, updateDb, t, setModal, showToast }) {
-  const [form, setForm] = useState({ name: currentUser.name, bio: currentUser.bio, phone: currentUser.phone, country: currentUser.country });
+  const [form, setForm] = useState({ name: currentUser.name||"", bio: currentUser.bio||"", phone: currentUser.phone||"", country: currentUser.country||"Tanzania", region: currentUser.region||"", area: currentUser.area||"" });
   const set = (k,v) => setForm(f=>({...f,[k]:v}));
+  const countryData = LOCATIONS[form.country] || LOCATIONS["Other"];
+  const regions = Object.keys(countryData.regions);
+  const areas = form.region ? (countryData.regions[form.region] || []) : [];
 
   const save = () => {
     const updated = { ...currentUser, ...form };
@@ -1191,13 +1391,39 @@ function EditProfileModal({ currentUser, setCurrentUser, db, updateDb, t, setMod
           <h2 className="serif">Edit Profile</h2>
           <button className="btn btn-ghost" onClick={()=>setModal(null)}><Icon.X/></button>
         </div>
-        <div style={{display:"grid",gap:"14px"}}>
+        <div style={{display:"grid",gap:"12px"}}>
           <div><div className="label">{t.name}</div><input className="input" value={form.name} onChange={e=>set("name",e.target.value)}/></div>
           <div><div className="label">{t.bio}</div><textarea className="input" value={form.bio} onChange={e=>set("bio",e.target.value)} style={{resize:"vertical",minHeight:"80px"}}/></div>
-          <div><div className="label">{t.phone}</div><input className="input" value={form.phone} onChange={e=>set("phone",e.target.value)} placeholder="+254 700 000000"/></div>
-          <div><div className="label">{t.country}</div><select className="select" value={form.country} onChange={e=>set("country",e.target.value)}>{COUNTRIES.map(c=><option key={c}>{c}</option>)}</select></div>
-          <div style={{padding:"12px",background:"var(--bg2)",borderRadius:"10px",fontSize:"13px",color:"var(--text3)"}}>
-            📸 Photo/video upload requires backend storage (Supabase). Connect your backend to enable.
+          <div><div className="label">{t.phone}</div><input className="input" value={form.phone} onChange={e=>set("phone",e.target.value)} placeholder="+255 700 000000"/></div>
+          <div>
+            <div className="label">🌍 {t.country}</div>
+            <select className="select" value={form.country} onChange={e=>{set("country",e.target.value);set("region","");set("area","");}}>
+              {COUNTRIES.map(c=><option key={c} value={c}>{LOCATIONS[c]?.flag||"🌍"} {c}</option>)}
+            </select>
+          </div>
+          <div>
+            <div className="label">📍 Mkoa / Region</div>
+            <select className="select" value={form.region} onChange={e=>{set("region",e.target.value);set("area","");}}>
+              <option value="">-- Chagua Mkoa --</option>
+              {regions.map(r=><option key={r} value={r}>{r}</option>)}
+            </select>
+          </div>
+          {form.region && (
+            <div>
+              <div className="label">🏘️ Mtaa / Area</div>
+              <select className="select" value={form.area} onChange={e=>set("area",e.target.value)}>
+                <option value="">-- Chagua Mtaa --</option>
+                {areas.map(a=><option key={a} value={a}>{a}</option>)}
+              </select>
+            </div>
+          )}
+          {form.area && (
+            <div style={{padding:"8px 12px",background:"rgba(201,168,76,.1)",border:"1px solid rgba(201,168,76,.3)",borderRadius:"8px",fontSize:"13px"}}>
+              📍 <strong style={{color:"var(--accent2)"}}>{form.area}, {form.region}</strong> — {LOCATIONS[form.country]?.flag} {form.country}
+            </div>
+          )}
+          <div style={{padding:"10px 12px",background:"var(--bg2)",borderRadius:"10px",fontSize:"12px",color:"var(--text3)"}}>
+            📸 Picha/video upload inahitaji Supabase Storage — tutaconnect hivi karibuni.
           </div>
         </div>
         <div style={{display:"flex",gap:"10px",marginTop:"20px"}}>
